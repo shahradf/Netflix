@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+    {% include "partials/navbar.html" %}
+    <section class="bg-primary_black min-h-screen py-20 md:py-0 flex flex-col justify-center items-center">
+        <h2 class="text-center text-5xl font-medium my-4 text-gray-100">
+            Who's Watching?
+        </h2>
+
+        <div class="flex flex-wrap justify-center items-center w-10/12 md:w-6/12">
+            {% for profile in profiles %}
+            <a href="{% url 'core:watch' profile_id=profile.uuid %}" class="m-4">
+                <div class="w-32 h-32 bg-blue-500 flex justify-center items-center flex-col rounded-md cursor-pointer transition-all duration-300 hover:scale-105">
+                    <p class="text-6xl text-white">{{ profile.name|slice:":1" }}</p>
+                    <p class="text-lg text-gray-100">{{ profile.name }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="flex justify-center items-center mt-6">
+            <a href="{% url 'core:profile_create' %}">
+                <button class="px-6 py-3 bg-primary_red text-white font-semibold rounded-md hover:bg-primary_red-dark transition duration-300">
+                    Add A New Profile
+                </button>
+            </a>
+        </div>
+    </section>
+{% endblock content %}

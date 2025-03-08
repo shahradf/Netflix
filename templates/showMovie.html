@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Netflix - Movie
+{% endblock title %}
+
+{% block content %}
+    {% include 'partials/navbar.html' %}
+    
+    <main class="bg-primary_black h-full w-full">
+        <!-- Embed movie data in a script tag for JS access -->
+        {{ movie|json_script:"movie_data" }}
+
+        <!-- Video player -->
+        <video controls class="w-full h-screen player"></video>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const videoElement = document.querySelector('video');
+            const movieData = JSON.parse(document.getElementById('movie_data').textContent);
+            
+            // Get the episode parameter from the URL query string, defaulting to 0
+            const urlParams = new URLSearchParams(window.location.search);
+            const episodeParam = parseInt(urlParams.get("epi")) || 0;
+            
+            // Set the video source dynamically based on the movie data and episode
+            const videoSource = `http://localhost:8000/media/${movieData[episodeParam].file}`;
+            videoElement.setAttribute('src', videoSource);
+        });
+    </script>
+{% endblock content %}
