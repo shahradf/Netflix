@@ -24,8 +24,8 @@ A fully functional Netflix Clone built using Django, Tailwind CSS, and Django-Al
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/netflix-clone.git
-cd netflix-clone
+git clone https://github.com/shahradf/Netflix
+cd Netflix
 python -m venv venv
 source venv/bin/activate  # On Windows use: venv\Scripts\activate
 python manage.py migrate
