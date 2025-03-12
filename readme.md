@@ -8,7 +8,7 @@ A fully functional Netflix Clone built using Django, Tailwind CSS, and Django-Al
 - Profile Management (Multiple Profiles per Account)  
 - Movies & TV Shows (Single & Seasonal Content)  
 - Maturity Levels (Kids & All)  
-- Video Streaming (Upload & Watch Movies)  
+- Video Streaming Byte by Byte (Upload & Watch Movies)  
 - Responsive UI (Built with Tailwind CSS)  
 
 ## Tech Stack
@@ -16,7 +16,8 @@ A fully functional Netflix Clone built using Django, Tailwind CSS, and Django-Al
 - Backend: Django, Django ORM  
 - Frontend: Tailwind CSS, HTML, JavaScript  
 - Database: SQLite (default), PostgreSQL (optional)  
-- Authentication: Django-Allauth  
+- Authentication: Django-Allauth
+
 
 
 ## Installation Guide
