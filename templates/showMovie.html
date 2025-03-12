@@ -1,32 +1,41 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Netflix - Movie
+Netflix - Watching {{ movie.title }}
 {% endblock title %}
 
 {% block content %}
     {% include 'partials/navbar.html' %}
-    
-    <main class="bg-primary_black h-full w-full">
-        <!-- Embed movie data in a script tag for JS access -->
-        {{ movie|json_script:"movie_data" }}
 
-        <!-- Video player -->
-        <video controls class="w-full h-screen player"></video>
+    <main class="bg-primary_black min-h-screen w-full flex flex-col items-center py-10">
+        <section class="w-11/12 max-w-4xl">
+            <video id="video-player" class="w-full h-auto rounded-lg shadow-lg" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+
+        <section class="w-11/12 max-w-4xl mt-6 text-center">
+            <h1 class="text-3xl font-semibold text-white">{{ movie.title }}</h1>
+            <p class="text-gray-300 text-lg mt-4">{{ movie.description }}</p>
+        </section>
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const videoElement = document.querySelector('video');
-            const movieData = JSON.parse(document.getElementById('movie_data').textContent);
-            
-            // Get the episode parameter from the URL query string, defaulting to 0
+            const videoElement = document.querySelector("#video-player");
+            const sourceElement = videoElement.querySelector("source");
+            const movieData = JSON.parse(document.getElementById("movie_data").textContent);
             const urlParams = new URLSearchParams(window.location.search);
-            const episodeParam = parseInt(urlParams.get("epi")) || 0;
-            
-            // Set the video source dynamically based on the movie data and episode
-            const videoSource = `http://localhost:8000/media/${movieData[episodeParam].file}`;
-            videoElement.setAttribute('src', videoSource);
+            const episodeIndex = parseInt(urlParams.get("epi")) || 0;
+            const movieUuid = document.getElementById("movie_uuid").textContent;
+        
+            if (movieData.length > episodeIndex) {
+                sourceElement.src = `/movie/play/${movieUuid}/?epi=${episodeIndex}`;
+                videoElement.load();
+            } else {
+                console.error("Episode not found.");
+            }
         });
     </script>
 {% endblock content %}
