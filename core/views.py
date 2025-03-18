@@ -61,16 +61,6 @@ class ShowMovie(BaseView):
     def get(self, request, movie_id, *args, **kwargs):
         movie = get_object_or_404(Movie, uuid=movie_id)
         video_file = movie.videos.first()
-
-        if not video_file:
-            return redirect('core:profile_list')
-
-        return self.stream_video(request, video_file)
-
-class ShowMovie(BaseView):
-    def get(self, request, movie_id, *args, **kwargs):
-        movie = get_object_or_404(Movie, uuid=movie_id)
-        video_file = movie.videos.first()
         if not video_file:
             return redirect('core:profile_list')
         file_path = video_file.file.path
